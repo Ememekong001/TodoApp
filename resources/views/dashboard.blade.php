@@ -35,22 +35,22 @@
                                     @csrf
                                     <div class="form-group">
                                         <label for="formGroupExampleInput">Title</label>
-                                        <input type="text" class="form-control {{$errors->has('title')? 'is invalid': ''}}" id="formGroupExampleInput"  name="title" placeholder="Enter a title for your task" autofocus required>
-                                            @if ($errors->has('title'))
+                                        <input type="text" class="form-control" id="formGroupExampleInput"  name="title" placeholder="Enter a title for your task" autofocus required>
+                                            {{-- @if ($errors->has('title'))
                                                 <span class="invalid-feedback" role="alert">
                                                     {{$errors->first('title')}}
                                                 </span>
-                                            @endif
+                                            @endif --}}
                                     </div>
 
                                     <div class="form-group">
                                         <label for="formGroupExampleInput2">Description</label>
-                                        <input type="text" class="form-control {{$errors->has('description')? 'is invalid': ''}}" id="formGroupExampleInput2" placeholder="Add a task Description" name="description" required>
-                                            @if ($errors->has('description'))
+                                        <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Add a task Description" name="description" required>
+                                            {{-- @if ($errors->has('description'))
                                                 <span class="invalid-feedback" role="alert">
                                                     {{$errors->first('description')}}
                                                 </span>
-                                            @endif
+                                            @endif --}}
                                     </div>
 
                                     <div class="form-group">
@@ -107,7 +107,7 @@
                                         </button>
                                         </div>
                                         <div class="modal-body">
-                                        <form action="{{ url ('edit/{id}'.$todo->id)}}" method="POST" autocomplete="off">
+                                        <form action="{{ url ('edit/'.$todo->id)}}" method="POST" autocomplete="off">
                                             {{ csrf_field() }}
                                             {{ method_field('PUT') }}
 
@@ -136,11 +136,7 @@
 
                             <!-- delete loop-->
                             <td>
-                                <form action="{{ url('/delete/{id}'.$todo->id) }}" method="post">
-                                    @csrf
-                                    {{method_field('DELETE')}}
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$todo->id}}">Delete</button>
-                                </form>
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{$todo->id}}">Delete</button>
                             </td>
                             <!-- delete loop ends-->
                             <!-- -->
@@ -157,9 +153,12 @@
                                       <p>Are you sure you want to delete this task? </p>
                                     </div>
                                     <div class="modal-footer">
-
-                                        <button type="submit" class="btn btn-primary">Save changes</button>
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <form action="{{ url('delete/'.$todo->id) }}" method="post">
+                                            @csrf
+                                            {{method_field('DELETE')}}
+                                            <button type="submit" class="btn btn-primary">Yes</button>
+                                        </form>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                     </div>
                                   </div>
                                 </div>

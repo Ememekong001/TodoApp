@@ -33,13 +33,6 @@ class TodoController extends Controller
 
     public function update(TodoRequest $request, $id)
     {
-        // DB::table('todos')->where('id',$request['id'])
-        //         ->update([
-        //             'title' =>$request['title'],
-        //             'description' =>$request['description'],
-        //             'location' =>$request['location'],
-        //         ]);
-            // $todo->user_id = Auth::user()->id;
 
         $todo = Todo::findOrFail($id);
         $todo->title = $request['title'];
