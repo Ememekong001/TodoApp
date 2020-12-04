@@ -12,8 +12,7 @@ class TodoController extends Controller
 {
     public function index()
     {
-
-        $todos=Todo::orderBy('created_at','desc')->paginate(5);
+        $todos=Todo::orderBy('created_at','desc')->where('user_id', Auth::user()->id)->paginate(5);
         return view('dashboard',[
             'todos' =>$todos,
         ]);
